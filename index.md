@@ -1,37 +1,80 @@
-## Welcome to GitHub Pages
+###1-前言
 
-You can use the [editor on GitHub](https://github.com/shen-liang/shen-liang.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+随着融都科技业务的不断拓展，客户端开发团队人数激增，代码量急剧膨胀，业务的成长和人员的倍增给技术架构、团队合作、产品的交付都带来了巨大的挑战，本文将讲述融都移动APP是如何保证高效、稳定、安全、高质量的持续交付，希望借此机会向大家分享经验与教训，与大家共同探讨移动APP高质量持续交付之道，在讨论移动APP持续交付之前先介绍一下融都科技研发协同平台。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+融都科技研发协同平台（RDCI）. 致力于将构建、部署、测试、发布的过程自动化，以此来帮助用户高效且安全地交付研发成果；RDCI集成了应用管理、组件管理、移动APP管理、产品管理、代码管理、编译构建管理、发布管理、审批管理等功能，从研发协同、代码质量、安全、快速交付、测试及结果反馈等几个方面打造了一条完整的工具链。
 
-### Markdown
+移动APP持续交付模块作为融都产品开发最重要的模块之一，将测试、编译打包，发版、构建渠道包，上传生产服务器等手工操作实现了完全自动化，让整个交付过程变得可靠、可预期、可视化、改变了移动APP的交付方式，让开发人员从琐碎的重复劳动中解放出来。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+###2-平台理念
 
-```markdown
-Syntax highlighted code block
+RDCI的移动APP持续交付的理念是研发—构建流程化。
 
-# Header 1
-## Header 2
-### Header 3
+<img class="alignnone wp-image-705" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/RDCI-300x196.png" alt="" width="569" height="372" />
 
-- Bulleted
-- List
+###3-RDCI持续交付模块具备哪些能力
 
-1. Numbered
-2. List
+<img class="alignnone wp-image-712" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/Pasted-Graphic-2-300x166.png" alt="" width="600" height="332" />
 
-**Bold** and _Italic_ and `Code` text
+##基础环境管理：
 
-[Link](url) and ![Image](src)
-```
+代码托管支持svn与git，开发人员根据项目或者所属产品分配代码托管环境。
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+组件库管理包含iOS的私有化cocopods与android的maven库，组件库中包含开发日常使用的公共库，组件库的搭建使得公共组建能长期稳定的运行，能提高开发的抽象能力。使得部门开发日积月累中能有所沉淀。
 
-### Jekyll Themes
+证书管理服务于iOS的测试与生产包构建所需要的证书。目前已经管理了上百个生产证书，与N个inhouse内测证书。如下图所示
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/shen-liang/shen-liang.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<img class="alignnone wp-image-707" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/Snipaste_2018-10-08_15-07-50-300x137.png" alt="" width="609" height="278" />
 
-### Support or Contact
+##配置管理：
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+应用的配置我们尽量交给项目经理角色来决定APP使用的服务器地址等信息，类似这些基本信息在管理平台上还会有应用名称、版本号、包名、应用logo等。
+
+##功能配置：不同的项目会有不同的需求，特别是功能相似只是对接的三方不同。这种情况在产品迭代中我们会保留新增功能，日积月累下，产品中的可配置功能也就丰富了起来。如下图：
+
+<img class="alignnone wp-image-708" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/Snipaste_2018-10-08_15-15-12-300x144.png" alt="" width="600" height="288" />
+
+##界面信息管理：受惠于良好的设计风格，设计部门会制定规范一套规范控件颜色标准。那么开发人员只需要使用抽象出来的配色类，在实际构建的过程中，脚本会依据具体的配置方案修改代码中的配置文件。下图便是配色方案管理图：
+
+<img class="alignnone wp-image-709" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/Pasted-Graphic-1-300x147.png" alt="" width="598" height="293" />
+
+##发布管理：
+
+经过测试与客户体验无误之后，便进入到了发布阶段。iOS的应用发布在填写完应用的基本信息之后，边可以直接打包提交审核了。android的应用除了提供直接下载的链接之外，平台还提供了渠道包的构建管理，方便客户在运营推广方面的需求，之后还需要用户再手动上传到不同的应用市场了。
+
+###4-持续交付流水线
+
+我们把开发工作流程分为以下几个阶段：
+
+编码 -&gt; 构建 -&gt; 集成 -&gt; 测试 -&gt; 交付
+
+<span class="Apple-converted-space"> </span><img class="alignnone wp-image-710" src="http://mobile.rd.com/docs/wp-content/uploads/2018/10/Pasted-Graphic-4-300x181.png" alt="" width="608" height="367" />
+
+为了让研发能够快速、安全、频繁的向客户交付产品，以便尽早得到生产环境中反馈的问题。 RDCI建设了可靠可重复的交付流水线，通过交付流水线，将全局过程标准化、自动化、可视化，关键流程和节点管控，实现并行开发过程中的协同和管理。
+
+##编码阶段：
+
+当有项目需要开发，产品经理在“禅道”(项目管理软件)上细化产品需求，项目经理制定发布计划并分配任务之后。开发人员通过看板管理自己的需求合任务，需求关联上线分支，配合每次发布，统一记录跟踪需求处理进度。
+
+##构建阶段：
+
+通过Jenkins，捕获到每次开发人员的提交记录，自动开始执行构建任务
+
+##集成阶段：
+
+自动构建成功之后的ipa/apk包会自动上传到分发平台，并生成二维码。二维码发送给相关开发/测试人员之后，可通过手机二维码扫描安装对应版本验证。集成之后，会触发各自产品的自动化主流程测试脚本，按照编写的测试用例执行测试。
+
+##测试阶段：
+
+开发提交测试之后，禅道会生成测试基线，测试人员可以在RDCI上根据不同配置构建测试和生产环境包。然后按照编写的测试用例进行详细测试
+
+##交付阶段：
+
+由测试提交发布申请，负责人确认之后。trunk代码会在构建的时候自动打tag备份这次交付源码。RDCI平台支持安卓渠道包的构建，更新。如需构建渠道，可通过RDCI批量构建渠道包。iOS的生产包通过平台的配置信息，构建成功之后便可自动提交到AppStore进行审核，RDCI也支持应用在AppStore的状态，以便能及时获取审核状态。就此，一个持续交付流程就结束了。
+
+###5-总结
+持续交付的价值绝不仅仅是快，在提升软件交付效率之外，软件交付流程和规范、保证软件交付质量、降低软件发布风险，这才是最重要的。
+
+在平台稳定运行的2年多时间中，从平台已经诞生305个项目，涉及700多个安卓+iOS+微信h5的配置构建，管理着283个开发者账号。
+
+RDCI的未来发展计划：我们将从开发到构建、测试、发布、运维、运营的全生命周期进行管控，集成开发规范、测试规范、发布规范，效率和质量始终是软件开发的追求。
